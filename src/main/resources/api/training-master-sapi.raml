@@ -1,0 +1,75 @@
+#%RAML 1.0
+title: Training Master sapi
+
+description: As a user, I can access the training service on the Caliber Legacy API.
+version: v1
+protocols:
+  - HTTP
+
+baseUri: http://training-sapi.us-e2.cloudhub.io/api
+
+types:
+  BatchTrain: !include DataTypes/batchTrainingDataType.raml 
+  BatchQC: !include DataTypes/batchQCDataType.raml
+  Trainer: !include DataTypes/trainerDataType.raml
+
+/training:
+  get:
+    queryParameters:
+      email:
+        required: false
+        type: string
+    displayName: Get batchIds
+    description: Gets all batchIDs (can be filtered by trainer)
+    responses:
+      200:
+        description: "Success"
+        body:
+          application/json:
+            type: array
+            examples:
+              output: !include Examples/batchIDExample.raml
+
+/{trainerEmail}:
+  uriParameters:
+    trainerEmail:
+      required: true
+      type: string
+  get:
+    responses:
+      200:
+        description: "Success"
+        body:
+          application/json:
+            type: Trainer
+            examples:
+              output: !include Examples/trainerExample.raml
+
+/batch:
+  get:
+    queryParameters:
+      batchID:
+        required: false
+        type: string
+    displayName: Get batches (training version)
+    description: Gets all batches in the training format (for more info, look at the batchTrainingDataType.raml in the DataTypes folder). Can be filtered by batch ID for a specific batch.
+    responses:
+      200:
+        description: "Success"
+        body:
+          application/json:
+            examples:
+              output: !include Examples/batchTrainExample.raml
+
+/batches:
+  get:
+    displayName: Get batches (qc version)
+    description: Gets all batches in the QC version (for more info, look at the batchQCDataType.raml in the DataTypes folder.)
+    responses:
+      200:
+        description: "Success"
+        body:
+          application/json:
+            type: BatchQC[]
+            examples:
+              output: !include Examples/batchQCExample.raml 
