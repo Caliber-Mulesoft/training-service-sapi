@@ -6,20 +6,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
-	
-	<flow name="get-assessment" doc:id="59a36bcd-240c-4b40-96f0-2479e69e88f6" >
-		<http:request method="GET" doc:name="GET /assessment" doc:id="c4faedfa-8467-4ae4-b220-419d43851914" path="${assessment.path}" config-ref="assessment_HTTP_Request_configuration">
-			<http:query-params ><![CDATA[#[output application/java
----
-{
-	"batchId" : vars.batchId,
-	"week" : vars.week
-}]]]></http:query-params>
-		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="2b9f923d-d572-4536-b0e6-c0330a0c9d86" />
-	</flow>
 	<flow name="get-batch-ids" doc:id="4da00f29-b94c-48c3-9aa9-fbe85a1f33a9" >
-		<http:request method="GET" doc:name="Request" doc:id="b5253d9e-cf23-4892-915b-cc449810b622" config-ref="batch_ids_HTTP_Request_configuration" path="${batch-ids.path}/{email}/ids">
+		<http:request method="GET" doc:name="GET /batch/{trainerEmail}/ids" doc:id="b5253d9e-cf23-4892-915b-cc449810b622" config-ref="batch_ids_HTTP_Request_configuration" path="${batch-ids.path}/{email}/ids">
 			<http:uri-params ><![CDATA[#[output application/java
 ---
 {
@@ -29,7 +17,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<logger level="INFO" doc:name="Logger" doc:id="34ce82a5-acad-4a05-8748-0543590225ba" />
 	</flow>
 	<flow name="get-trainer-info" doc:id="565c95fc-b478-4e30-baaa-915623ed8de2" >
-		<http:request method="GET" doc:name="Request" doc:id="957dd756-9cb0-4ffb-9248-2583fdd01fe5" config-ref="caliber_HTTP_Request_configuration" path="${trainer.path}/{email}">
+		<http:request method="GET" doc:name="GET /batch/trainer/{trainerEmail}" doc:id="957dd756-9cb0-4ffb-9248-2583fdd01fe5" config-ref="caliber_HTTP_Request_configuration" path="${trainer.path}/{email}">
 			<http:uri-params ><![CDATA[#[output application/java
 ---
 {
@@ -39,7 +27,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<logger level="INFO" doc:name="Logger" doc:id="284e0165-8b5a-4a58-a8db-e3f0d9f40a0e" />
 	</flow>
 	<flow name="get-batch-info" doc:id="6352fea5-b2cb-4cff-8061-1c52c1982b14" >
-		<http:request method="GET" doc:name="Request" doc:id="306df3e6-fef3-4a09-a17c-303167e3dfb6" config-ref="caliber_HTTP_Request_configuration" path="${batch-ids.path}/{batchId}">
+		<http:request method="GET" doc:name="GET /batch/{batchId}" doc:id="306df3e6-fef3-4a09-a17c-303167e3dfb6" config-ref="caliber_HTTP_Request_configuration" path="${batch-ids.path}/{batchId}">
 			<http:uri-params ><![CDATA[#[output application/java
 ---
 {
@@ -47,37 +35,5 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:uri-params>
 		</http:request>
 		<logger level="INFO" doc:name="Logger" doc:id="f083c86b-480d-4b58-9825-0cd92389011d" />
-	</flow>
-	<flow name="get-notes-by-batch-id" doc:id="e3ff3ab1-4bf1-4eb6-9291-1adf5c94df79" >
-		<http:request method="GET" doc:name="Request" doc:id="032a3999-e206-4067-a978-2aa8e61616c8" config-ref="caliber_HTTP_Request_configuration" path="${notes-info.path}/{batchId}">
-			<http:uri-params ><![CDATA[#[output application/java
----
-{
-	"batchId" : vars.batchId
-}]]]></http:uri-params>
-		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="f75c5e12-c481-44e0-950b-d24a9fbcff67" />
-	</flow>
-	<flow name="get-average" doc:id="b330fb3e-b285-4a95-a811-f7b89adc40d9" >
-		<http:request method="GET" doc:name="Request" doc:id="1e454252-8b9b-4e33-a43d-745c8e784a42" config-ref="caliber_HTTP_Request_configuration" path="${average.path}">
-			<http:query-params ><![CDATA[#[output application/java
----
-{
-	"batch" : vars.batchId,
-	week : vars.week
-}]]]></http:query-params>
-		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="6fa3e60c-1cfb-471d-81c9-dd4f4da33a4a" />
-	</flow>
-	<flow name="get-category" doc:id="a5c68e1d-f162-4c87-84b6-092d69396737" >
-		<http:request method="GET" doc:name="Request" doc:id="cb0d88d8-cdf0-4578-ad7b-9beea8b86b3a" config-ref="caliber_HTTP_Request_configuration" path="${category.path}/{batchId}/{week}">
-			<http:uri-params ><![CDATA[#[output application/java
----
-{
-	"batchId" : vars.batchId,
-	"week" : vars.week
-}]]]></http:uri-params>
-		</http:request>
-		<logger level="INFO" doc:name="Logger" doc:id="22390faf-5f91-4a79-aa86-434dc658a221" />
 	</flow>
 </mule>

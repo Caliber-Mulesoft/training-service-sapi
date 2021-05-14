@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
     <http:listener-config name="training-master-sapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
@@ -124,9 +124,9 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\batch:training-master-sapi-config">
-		<set-variable value="#[attributes.queryParams.batchId]" doc:name="Set Variable" doc:id="c1d3a210-19be-46cf-bcf3-660e3f4bb32c" variableName="batchId" />
-		<flow-ref doc:name="Flow Reference" doc:id="5a6f8fe1-6ceb-4299-ad9d-20e3641949e1" name="get-batch-info" />
-		<logger level="INFO" doc:name="Logger" doc:id="157a949e-938a-4472-a21d-2e0d74b1b9fd" />
+        <set-variable value="#[attributes.queryParams.batchId]" doc:name="batchId" doc:id="c1d3a210-19be-46cf-bcf3-660e3f4bb32c" variableName="batchId" />
+        <flow-ref doc:name="get-batch-info" doc:id="5a6f8fe1-6ceb-4299-ad9d-20e3641949e1" name="get-batch-info" />
+        <logger level="INFO" doc:name="Logger" doc:id="157a949e-938a-4472-a21d-2e0d74b1b9fd" />
     </flow>
     <flow name="get:\batches:training-master-sapi-config">
         <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
@@ -150,18 +150,13 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="get:\training:training-master-sapi-config">
-		<set-variable value="#[attributes.queryParams.email]" doc:name="Set Variable" doc:id="bcef4009-7111-4fbf-9a1f-58ee71010fa9" variableName="trainerEmail" />
-		<flow-ref doc:name="Flow Reference" doc:id="b913059b-63df-41ac-ab28-945efbd727a8" name="get-batch-ids" />
-		<logger level="INFO" doc:name="Logger" doc:id="0ea5a2dd-2464-4aa5-865d-792548c87f22" />
+        <set-variable value="#[attributes.queryParams.email]" doc:name="email" doc:id="bcef4009-7111-4fbf-9a1f-58ee71010fa9" variableName="trainerEmail" />
+        <flow-ref doc:name="get-batch-ids" doc:id="b913059b-63df-41ac-ab28-945efbd727a8" name="get-batch-ids" />
+        <logger level="INFO" doc:name="Logger" doc:id="0ea5a2dd-2464-4aa5-865d-792548c87f22" />
     </flow>
     <flow name="get:\(trainerEmail):training-master-sapi-config">
-		<set-variable value="#[attributes.uriParams.trainerEmail]" doc:name="Set Variable" doc:id="4bfdd1d9-10e2-4ed6-920f-def4f4ff9bc3" variableName="trainerEmail" />
-		<flow-ref doc:name="Flow Reference" doc:id="abb1a1d1-2cea-4ecb-b9a6-31e4322ced26" name="get-trainer-info" />
-		<logger level="INFO" doc:name="Logger" doc:id="998bfe5c-2ede-4fad-8bf3-3a6a95c3bdc7" />
+        <set-variable value="#[attributes.uriParams.trainerEmail]" doc:name="trainerEmail" doc:id="4bfdd1d9-10e2-4ed6-920f-def4f4ff9bc3" variableName="trainerEmail" />
+        <flow-ref doc:name="get-trainer-info" doc:id="abb1a1d1-2cea-4ecb-b9a6-31e4322ced26" name="get-trainer-info" />
+        <logger level="INFO" doc:name="Logger" doc:id="998bfe5c-2ede-4fad-8bf3-3a6a95c3bdc7" />
     </flow>
-	<flow name="get:\notes\(batchId):training-service-sapi-config" doc:id="bf3e7f67-9a46-4230-a873-6e853f46bfad" >
-		<set-variable value="#[attributes.uriParams.batchId]" doc:name="batchId" doc:id="8c5a76ba-521a-4c75-9464-38009414eac4" variableName="batchId" />
-		<flow-ref doc:name="get-notes-by-batch-id" doc:id="5c4afe41-95ef-4aa6-a00f-dc970a89568d" name="get-notes-by-batch-id" />
-		<logger level="INFO" doc:name="Logger" doc:id="f7d50787-b421-481d-b2e1-885c58a79c51" message="get:\notes\(batchId):training-service-sapi-config" />
-	</flow>
 </mule>

@@ -17,7 +17,7 @@ types:
   get:
     queryParameters:
       email:
-        required: false
+        required: true
         type: string
     displayName: Get batchIds
     description: Gets all batchIDs (can be filtered by trainer)
@@ -49,7 +49,7 @@ types:
   get:
     queryParameters:
       batchID:
-        required: false
+        required: true
         type: string
     displayName: Get batches (training version)
     description: Gets all batches in the training format (for more info, look at the batchTrainingDataType.raml in the DataTypes folder). Can be filtered by batch ID for a specific batch.
