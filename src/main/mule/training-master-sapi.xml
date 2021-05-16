@@ -129,25 +129,8 @@ output application/json
         <logger level="INFO" doc:name="Logger" doc:id="157a949e-938a-4472-a21d-2e0d74b1b9fd" />
     </flow>
     <flow name="get:\batches:training-master-sapi-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-[
-  {
-    BatchId: "TR-1201",
-    StartDate: "2021-02-22",
-    EndDate: "2021-05-15"
-  }, 
-  {
-    BatchId: "TR-1201",
-    StartDate: "2021-01-01",
-    EndDate: "2021-03-15"
-  }
-]]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="get-all-batches" doc:id="100a369c-9171-43ce-9739-f41b5a3cacbc" name="get-all-batches" />
+        <logger level="INFO" doc:name="Logger" doc:id="80eab8f2-0ff8-4b9f-8a95-aced0b9ca195" />
     </flow>
     <flow name="get:\training:training-master-sapi-config">
         <set-variable value="#[attributes.queryParams.email]" doc:name="email" doc:id="bcef4009-7111-4fbf-9a1f-58ee71010fa9" variableName="trainerEmail" />
@@ -158,5 +141,13 @@ output application/json
         <set-variable value="#[attributes.uriParams.trainerEmail]" doc:name="trainerEmail" doc:id="4bfdd1d9-10e2-4ed6-920f-def4f4ff9bc3" variableName="trainerEmail" />
         <flow-ref doc:name="get-trainer-info" doc:id="abb1a1d1-2cea-4ecb-b9a6-31e4322ced26" name="get-trainer-info" />
         <logger level="INFO" doc:name="Logger" doc:id="998bfe5c-2ede-4fad-8bf3-3a6a95c3bdc7" />
+    </flow>
+    <flow name="get:\batch\current:training-master-sapi-config">
+        <flow-ref doc:name="get-current-batches" doc:id="b55144d3-8295-4225-ae14-ad71b29f4007" name="get-current-batches" />
+        <logger level="INFO" doc:name="Logger" doc:id="48459f92-8cbb-4380-a21c-988d4846d056" />
+    </flow>
+    <flow name="get:\batch\trainers:training-master-sapi-config">
+        <flow-ref doc:name="get-all-trainers" doc:id="6f24770f-333c-4830-9d96-4cb2f3cf92eb" name="get-all-trainers" />
+        <logger level="INFO" doc:name="Logger" doc:id="f094c044-0085-48b7-a61a-ff533caca83f" />
     </flow>
 </mule>

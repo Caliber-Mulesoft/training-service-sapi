@@ -6,29 +6,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-
-	<http:request-config
-		name="assessment_HTTP_Request_configuration"
-		doc:name="HTTP Request configuration"
-		doc:id="df59afca-9e3f-4f38-835f-7d691db0a5d7"
-		basePath="${assessment.basepath}">
-		<http:request-connection
-			host="${assessment.host}" port="${assessment.port}"
-			protocol="${assessment.protocol}" />
-	</http:request-config>
 	<configuration-properties
 		doc:name="Configuration properties"
 		doc:id="c4c13baa-0260-4989-9c48-7c08187c8060" file="config.yaml" />
-	<http:request-config
-		name="batch_ids_HTTP_Request_configuration"
-		doc:name="HTTP Request configuration"
-		doc:id="14eb8f35-b4f6-4637-9464-c84755f7166d"
-		basePath="${batch-ids.basepath}">
-		<http:request-connection
-			protocol="${batch-ids.protocol}" host="${batch-ids.host}"
-			port="${batch-ids.port}" />
-	</http:request-config>
-	<http:request-config name="caliber_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="82fda7f4-990f-44ff-b956-c5ed8c419278" basePath="${caliber.basepath}" >
+	<http:request-config name="caliberHttpReqConfig" doc:name="HTTP Request configuration" doc:id="82fda7f4-990f-44ff-b956-c5ed8c419278" basePath="${caliber.basepath}" >
 		<http:request-connection protocol="${caliber.protocol}" host="${caliber.host}" port="${caliber.port}" />
 	</http:request-config>
 

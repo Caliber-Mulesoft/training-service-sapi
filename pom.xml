@@ -55,6 +55,13 @@
 			<version>1.5.1</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+		<dependency>
+			<groupId>202383ba-8a30-47f2-a9af-40a59ffe741f</groupId>
+			<artifactId>training-master-sapi</artifactId>
+			<version>1.1.0</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
+		</dependency>
 	</dependencies>
 
 	<repositories>

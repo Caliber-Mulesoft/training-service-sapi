@@ -48,7 +48,7 @@ types:
 /batch:
   get:
     queryParameters:
-      batchID:
+      batchId:
         required: true
         type: string
     displayName: Get batches (training version)
@@ -60,6 +60,28 @@ types:
           application/json:
             examples:
               output: !include Examples/batchTrainExample.raml
+
+  /current:
+    get:
+      description: Get all current batches from Caliber
+      displayName: Get current batches
+      responses:
+        200:
+          description: "Success"
+          body:
+            application/json:
+              examples: !include /Examples/batchTrainExample.raml
+
+  /trainers:
+    get:
+      description: Get all trainers
+      displayName: Get all trainers
+      responses:
+        200:
+          description: "Success"
+          body:
+            application/json:
+              examples: !include /Examples/allTrainerExample.raml
 
 /batches:
   get:

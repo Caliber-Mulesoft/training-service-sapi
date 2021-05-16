@@ -1,34 +1,14 @@
 caliber:
   port: "443"
   host: "caliber2-mock.revaturelabs.com"
-  basepath: "/mock"
-  protocol: "HTTPS"
-
-assessment:
-  port: "443"
-  host: "caliber2-mock.revaturelabs.com"
-  basepath: "/mock"
-  path: "/evaluation/assessments"
-  protocol: "HTTPS"
-  
-batch-ids:
-  port: "443"
-  host: "caliber2-mock.revaturelabs.com"
-  basepath: "/mock"
-  path: "training/batch"
+  basepath: "/mock/training/batch"
   protocol: "HTTPS"
   
 trainer:
-  path: "${batch-ids.path}/trainer"
+  path: "/trainer"
   
-batch-info:
-  path: "${batch-ids.path}"
+current:
+  path: "/current"
   
-notes-info:
-  path: "qa/notes/individual"
-  
-average:
-  path: "/evaluation/grades/average"
-  
-category:
-  path: "/qa/category"
+get-all-trainers:
+  path: "/trainers"
