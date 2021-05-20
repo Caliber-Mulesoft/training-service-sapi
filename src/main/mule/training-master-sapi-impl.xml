@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="get-batch-ids" doc:id="4da00f29-b94c-48c3-9aa9-fbe85a1f33a9" >
+		<http:request method="GET" doc:name="GET /batch/{trainerEmail}/ids" doc:id="b5253d9e-cf23-4892-915b-cc449810b622" config-ref="caliberHttpReqConfig" path="/{email}/ids">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"email" : vars.trainerEmail
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="34ce82a5-acad-4a05-8748-0543590225ba" />
+	</flow>
+	<flow name="get-trainer-info" doc:id="565c95fc-b478-4e30-baaa-915623ed8de2" >
+		<http:request method="GET" doc:name="GET /batch/trainer/{trainerEmail}" doc:id="957dd756-9cb0-4ffb-9248-2583fdd01fe5" config-ref="caliberHttpReqConfig" path="${trainer.path}/{email}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"email" : vars.trainerEmail
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="284e0165-8b5a-4a58-a8db-e3f0d9f40a0e" />
+	</flow>
+	<flow name="get-batch-info" doc:id="6352fea5-b2cb-4cff-8061-1c52c1982b14" >
+		<http:request method="GET" doc:name="GET /batch/{batchId}" doc:id="306df3e6-fef3-4a09-a17c-303167e3dfb6" config-ref="caliberHttpReqConfig" path="/{batchId}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"batchId" : vars.batchId
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="f083c86b-480d-4b58-9825-0cd92389011d" />
+	</flow>
+	<flow name="get-all-batches" doc:id="4d547d94-b573-4a77-8955-493e2a8f1d1a" >
+		<http:request method="GET" doc:name="GET /batch" doc:id="520dd695-5c2f-4216-8a0c-251ae632db9b" config-ref="caliberHttpReqConfig" path="/"/>
+		<logger level="INFO" doc:name="Logger" doc:id="04bb054d-16c5-46ba-bf32-828c0e872b6f" />
+	</flow>
+	<flow name="get-current-batches" doc:id="4458131e-e4a1-4d5d-b9d6-50f26c533532" >
+		<http:request method="GET" doc:name="GET /batch/current" doc:id="fa0aaa0a-bd81-4ffd-91c4-337be00f1625" config-ref="caliberHttpReqConfig" path="${current.path}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8d057028-60c0-4b05-a147-8f169e1f8811" />
+	</flow>
+	<flow name="get-all-trainers" doc:id="1fd6de15-627c-44e9-ad24-eef32d6367d6" >
+		<http:request method="GET" doc:name="GET /batch/trainers" doc:id="3dbe0d26-3ae9-4cac-ab5a-1ac750bded8f" config-ref="caliberHttpReqConfig" path="${get-all-trainers.path}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="79aa31bc-0f00-4ee5-b067-07530bebf479" />
+	</flow>
+</mule>
